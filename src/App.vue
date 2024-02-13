@@ -1,5 +1,8 @@
+
 <template>
   <form @submit.prevent="submitForm" class="form">
+    <h1>{{ header }}</h1>
+
     <label for="inputName">Name:</label>
     <input type="text" id="inputName" v-model="formData.name" class="input">
     
@@ -8,34 +11,32 @@
 
     <div class="Skills">
       Skills:
-      <label><input type="checkbox" v-model="skills" value="react.js">React.js</label>
-      <label><input type="checkbox" v-model="skills" value="vue.js">Vue.js</label>
-      <label><input type="checkbox" v-model="skills" value="node.js">Node.js</label>
+      <label><input type="radio" v-model="radioBox" name="skills" value="reactjs">React.js</label>
+      <label><input type="radio" v-model="radioBox" name="skills" value="vuejs">Vue.js</label>
+      <label><input type="radio" v-model="radioBox" name="skills" value="nodejs">Node.js</label>
     </div>
 
-    <button type="submit" class="button">Submit</button>
+    <img src="./reactjs.png" v-if="radioBox === 'reactjs'">
+    <img src="./vue.js.png" v-else-if="radioBox === 'vuejs'">
+    <img src="./node.js.png" v-else>
+
+    <button type="submit" class="button" @click="submitForm">Submit</button>
   </form>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-
+const header = ref('Simple form');
 const formData = ref({
   name: '',
   email: ''
 });
-
-
-const skills = ref([]);
-
+const radioBox = ref('');
 
 const submitForm = () => {
-  
   console.log('Form data:', formData.value);
-  
-  console.log('Skills:', skills.value);
-
+  console.log('Skills:', radioBox.value);
 };
 </script>
 
